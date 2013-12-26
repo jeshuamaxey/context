@@ -9,4 +9,3 @@ A neat Chrome plugin to provide context when browsing [wikipedia](http://wikiped
 * stop the context box resizing when it shows 'loading...'
 * fail gracefully
 * make an icon
-* change the title of context box to title of wikipedia article
