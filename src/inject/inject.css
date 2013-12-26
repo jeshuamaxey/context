@@ -1,19 +1,20 @@
-button.showContext {
+.btn {
 	position: fixed;
 	bottom: 0;
+
+	height: 40px;
 	width: 177px;
 	
 	border: none;
-	height: 40px;
 	font-size: 110%;
 }
 
-button.showContext:hover {
-
+.btn:hover {
+	cursor: pointer;
 }
 
 button.hideContext {
-
+	margin-left: -11px;
 }
 
 .contextBoxWrapper {
