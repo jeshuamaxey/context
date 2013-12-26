@@ -1,0 +1,66 @@
+button.showContext {
+	position: fixed;
+	bottom: 0;
+	width: 177px;
+	
+	border: none;
+	height: 40px;
+	font-size: 110%;
+}
+
+button.showContext:hover {
+
+}
+
+button.hideContext {
+
+}
+
+.contextBoxWrapper {
+	position: fixed;
+	bottom: 0;
+
+	height: 150px;
+	min-width: 155px;
+	overflow: none;
+
+	padding: 0px 10px 10px 10px;
+
+	line-height: 1.5em;
+	font-size: 0.8em;
+	/* styles borrowed from contents box of wikipedia page*/
+	border: 1px solid #aaa;
+	background-color: #f9f9f9;
+}
+
+.title {
+	width: 155px;
+	float: left
+}
+
+.title h1 {
+	line-height: 1.2em;
+}
+
+#contextBox {
+	padding: 10px 10px 10px 25px;
+	max-height: 100%;
+	overflow: scroll;
+}
+
+#contextBox #coordinates {
+	display: none;
+}
+
+/*
+#contextBox h1 {
+	text-align: center;
+	border: none;
+}
+*/
+
+/* helper classes */
+
+.hidden {
+	display: none;
+}
