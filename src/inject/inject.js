@@ -56,7 +56,6 @@ app.scanSuitableLinks = function() {
 			};
 		}
 	});
-	app.debug ? console.log(app.contexts) : null ;
 }
 
 //when context is turned off
@@ -114,26 +113,25 @@ app.getData = function(title) {
 //save data into app.contexts
 app.processData = function(data, title) {
 	app.contexts[title].data = data;
-	app.contexts[title].fullText = data.parse.text["*"];
-	
-	app.contexts[title].fullText.replace(/<p>(.*?)<\/p>/g, function () {
-		app.contexts[title].text = arguments;
-		app.populateContextBox(title);
-	});
+	app.contexts[title].fullText = data.parse.text["*"].wiki2html();
+	//clever parsing could occur here to exclude images conditionally
+	app.contexts[title].text = app.contexts[title].fullText;
+	app.populateContextBox(title);
 }
 
 //show context snippet
 app.populateContextBox = function(title) {
-	$('#contextBox').html(app.contexts[title].text[0]).removeClass('hidden');
+	$('#contextBox').html(app.contexts[title].text).removeClass('hidden');
 	$('#title h2 a').attr('href', app.contexts[title].wikiURL);
 	$('#title h2 a').html(title);
 }
 
-//
+//for URL to title manipulation
 app.encode_utf8 = function(s) {
   return unescape(s);
 }
 
+//for URL to title manipulation
 app.decode_utf8 = function(s) {
   return decodeURIComponent(s);
 }
