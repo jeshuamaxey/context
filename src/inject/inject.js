@@ -2,7 +2,9 @@ var app = app || {};
 
 //remebers state of the app
 app.on = false;
-
+//debug mode
+app.debug = true;
+//how to trigger context
 app.trigger = "click"; //mouseenter";
 
 //CSS selector used to scan links
@@ -10,7 +12,7 @@ app.linkSelector = "#mw-content-text p a.contextEligible";
 
 //stores all data from api calls to prevent making same call twice
 //consider using local database here
-app.snippets = {};
+app.contexts = {};
 
 app.contextBox = "<button id='showContext' class='btn showContext'>Context</button>" +
 									"<div id='contextBoxWrapper' class='contextBoxWrapper'>" +
@@ -41,14 +43,20 @@ app.main = function() {
 app.scanSuitableLinks = function() {
 	app.links = [];
 	$("#mw-content-text p a").each(function(i, a) {
-		var page = this.getAttribute("href").substring(6); //substring(6) removes /wiki/ from url
-		if(page.substring(0,5) == "Help:") return;
+		var contextURL = this.getAttribute("href").substring(6); //substring(6) removes /wiki/ from url
+		var title = app.decode_utf8(contextURL).replace(/_/g, " ");	//replace underscores with spaces;
+		if(contextURL.substring(0,5) == "Help:") return;
 		else {
 			$(this).addClass('contextEligible');
-			$(this).attr('page', page)
-			app.links.push(a);
+			$(this).attr('contextURL', contextURL);
+			$(this).attr('contextTitle', title);
+			app.contexts[title] = {
+				'contextURL' : contextURL,
+				'wikiURL' : '/wiki/' + contextURL
+			};
 		}
 	});
+	app.debug ? console.log(app.contexts) : null ;
 }
 
 //when context is turned off
@@ -78,49 +86,56 @@ app.getContext = function(e) {
 	$(this).addClass('contextSubject');
 	//show a loading gif in the context box
 	$('#contextBox').html(app.loadingGif);
-	//isolate the page name
-	page = $(this).attr('page'); //.getAttribute("href").substring(6); //substring(6) removes /wiki/ from url
+	//isolate the contextURL
+	title = $(this).attr('contextTitle');
 	//use the array if it has the relevant snippet
-	if(app.snippets[page] !== undefined) {
-		app.populateContextBox(page)
+	if(app.contexts[title].text !== undefined) {
+		app.populateContextBox(title)
 	} else {
 		//get the data
-		app.getData(page);
+		app.getData(title);
 	}
 }
 
 //make api call to wikipedia
-app.getData = function(page) {
+app.getData = function(title) {
 	if(app.contextOn) {
-		var url = "http://en.wikipedia.org/w/api.php?action=parse&format=json&section=0&prop=text&page=" + page;
+		var url = "http://en.wikipedia.org/w/api.php?action=parse&format=json&section=0&prop=text&page=" + app.contexts[title].contextURL;
 		$.ajax({
 			url: url,
 		}).done(function(data) {
-			app.processData(data, page);
+			app.processData(data, title);
 		}).error(function(err) {
 			alert('ERROR!\n'+err);
 		});
 	}
 }
 
-//save data into app.snippets
-app.processData = function(data, page) {
-	app.fullText = data.parse.text["*"];
-	app.text = [];
-	app.fullText.replace(/<p>(.*?)<\/p>/g, function () {
-		app.snippets[page] = {};
-		app.snippets[page].url = "/wiki/" + page;
-		app.snippets[page].title = page.replace(/_/g, " ");	//replace underscores with spaces
-		app.snippets[page].text = arguments;
-		app.populateContextBox(page);
+//save data into app.contexts
+app.processData = function(data, title) {
+	app.contexts[title].data = data;
+	app.contexts[title].fullText = data.parse.text["*"];
+	
+	app.contexts[title].fullText.replace(/<p>(.*?)<\/p>/g, function () {
+		app.contexts[title].text = arguments;
+		app.populateContextBox(title);
 	});
 }
 
 //show context snippet
-app.populateContextBox = function(page) {
-	$('#contextBox').html(app.snippets[page].text[0]).removeClass('hidden');
-	$('#title h2 a').attr('href', app.snippets[page].url);
-	$('#title h2 a').html(app.snippets[page].title);
+app.populateContextBox = function(title) {
+	$('#contextBox').html(app.contexts[title].text[0]).removeClass('hidden');
+	$('#title h2 a').attr('href', app.contexts[title].wikiURL);
+	$('#title h2 a').html(title);
+}
+
+//
+app.encode_utf8 = function(s) {
+  return unescape(s);
+}
+
+app.decode_utf8 = function(s) {
+  return decodeURIComponent(s);
 }
 
 //must go last
