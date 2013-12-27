@@ -5,7 +5,8 @@ A neat Chrome plugin to provide context when browsing [wikipedia](http://wikiped
 ## To Do
 
 * ensure first sentence is shown every time
-* ~~ account for links that start with '/wiki/Help:something' (see pronuciation guides in first line of first para) ~~
+* ~~account for links that start with '/wiki/Help:something' (see pronuciation guides in first line of first para)~~
+* account for links with a hyphen in the URL - [this article](http://en.wikipedia.org/wiki/Branching_process) has a link to "Galton-Watson process" which brings up info on Galton
 * allow links within table to be clicked for context
 * stop the context box resizing when it shows 'loading...'
 * fail gracefully
