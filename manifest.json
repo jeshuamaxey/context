@@ -23,7 +23,7 @@
     {
       "matches": ["*://*.wikipedia.org/wiki/*"],
       "css": ["src/inject/inject.css"],
-      "js": ["js/jquery/jquery.js", "src/inject/inject.js"]
+      "js": ["js/jquery/jquery.js", "js/wiki2html/wiki2html.js", "src/inject/inject.js"]
     }
   ]
 }
