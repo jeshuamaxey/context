@@ -64,12 +64,18 @@ button.hideContext {
 	display: none;
 }
 
-/*
-#contextBox h1 {
-	text-align: center;
-	border: none;
-}
+/* Hide specific elements of wikipedia summary
+*		- redirect and disambiguation notices
+*		- call to add citations and improve article
+* 	- error messages
+* 	- nav boxes
 */
+#contextBox .dablink,
+#contextBox table.metadata,
+#contextBox .error,
+#contextBox table.vertical-navbox {
+	display: none;
+}
 
 /* helper classes */
 

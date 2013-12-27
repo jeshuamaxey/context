@@ -115,6 +115,7 @@ app.processData = function(data, title) {
 	app.contexts[title].data = data;
 	app.contexts[title].fullText = data.parse.text["*"].wiki2html();
 	//clever parsing could occur here to exclude images conditionally
+	//for now, css is used to selectively hide specific elements
 	app.contexts[title].text = app.contexts[title].fullText;
 	app.populateContextBox(title);
 }
