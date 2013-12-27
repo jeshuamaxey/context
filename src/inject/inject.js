@@ -1,7 +1,9 @@
 var app = app || {};
 
 //remebers state of the app
-app.contextOn = true;
+app.on = false;
+
+app.trigger = "click"; //mouseenter";
 
 //stores all data from api calls to prevent making same call twice
 //consider using local database here
@@ -10,7 +12,7 @@ app.snippets = {};
 app.contextBox = "<button id='showContext' class='btn showContext'>Context</button>" +
 									"<div id='contextBoxWrapper' class='contextBoxWrapper'>" +
 										"<div id='title' class='title'>" +
-											"<h1><a href='http://jeshua.co'>Context</a></h1>" +
+											"<h2><a href='http://jeshua.co'>Context</a></h2>" +
 											"<button id='hideContext' class='btn hideContext'>Hide</button>" +
 										"</div>" +
 										"<div id='contextBox' class='hidden'></div>" +
@@ -26,34 +28,46 @@ app.main = function() {
 	//put the context UI in the DOM
 	$("body").append(app.contextBox)
 	//add event listeners to turn context on/off
-	$('#hideContext').on('click', app.hideContext);
-	$('#showContext').on('click', app.showContext);
-	//hover event listener that triggers context
-	$('#mw-content-text p a').on("mouseenter", app.getContext);
+	$('#hideContext').on('click', app.contextOff);
+	$('#showContext').on('click', app.contextOn);
+	//fire it up
+	app.contextOn();
 }
 
 //This doesn't do anything practical (yet)
 app.scanSuitableLinks = function() {
 	app.links = [];
 	$('#mw-content-text p a').each(function(i, a) {
+		$(this).addClass('contextEligible');
 		app.links.push(a);
 	});
 }
 
 //when context is turned off
-app.hideContext = function() {
-	app.contextOn = !app.contextOn;
+app.contextOff = function() {
+	app.on = !app.on;
 	$('#contextBoxWrapper').slideUp(200);
+	//remove event handler so clicks work as normal
+	$('#mw-content-text p a').unbind(app.trigger);
+	$('body').removeClass('contextOn');
 }
 
 //when context is turned on
-app.showContext = function() {
-	app.contextOn = !app.contextOn;
+app.contextOn = function() {
+	app.on = !app.on;
 	$('#contextBoxWrapper').slideDown(200);
+	//add event listener to override link clicks
+	$('#mw-content-text p a').on(app.trigger, app.getContext);
+	$('body').addClass('contextOn');
 }
 
 //initiates context search
-app.getContext = function() {
+app.getContext = function(e) {
+	//stop links being followed when clicked
+	e.preventDefault();
+	//highlight the link in the wikipedia article
+	$('#mw-content-text p a').removeClass('contextSubject');
+	$(this).addClass('contextSubject');
 	//show a loading gif in the context box
 	$('#contextBox').html(app.loadingGif);
 	//isolate the page name
@@ -75,13 +89,14 @@ app.getData = function(page) {
 			url: url,
 		}).done(function(data) {
 			app.processData(data, page);
+		}).error(function(err) {
+			alert('ERROR!\n'+err);
 		});
 	}
 }
 
 //save data into app.snippets
 app.processData = function(data, page) {
-	console.log('process');
 	app.fullText = data.parse.text["*"];
 	app.text = [];
 	app.fullText.replace(/<p>(.*?)<\/p>/g, function () {
@@ -96,8 +111,8 @@ app.processData = function(data, page) {
 //show context snippet
 app.populateContextBox = function(page) {
 	$('#contextBox').html(app.snippets[page].text[0]).removeClass('hidden');
-	$('#title h1 a').attr('href', app.snippets[page].url);
-	$('#title h1 a').html(app.snippets[page].title);
+	$('#title h2 a').attr('href', app.snippets[page].url);
+	$('#title h2 a').html(app.snippets[page].title);
 }
 
 //must go last
