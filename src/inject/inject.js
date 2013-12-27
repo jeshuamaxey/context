@@ -5,6 +5,9 @@ app.on = false;
 
 app.trigger = "click"; //mouseenter";
 
+//CSS selector used to scan links
+app.linkSelector = "#mw-content-text p a.contextEligible";
+
 //stores all data from api calls to prevent making same call twice
 //consider using local database here
 app.snippets = {};
@@ -37,9 +40,14 @@ app.main = function() {
 //This doesn't do anything practical (yet)
 app.scanSuitableLinks = function() {
 	app.links = [];
-	$('#mw-content-text p a').each(function(i, a) {
-		$(this).addClass('contextEligible');
-		app.links.push(a);
+	$("#mw-content-text p a").each(function(i, a) {
+		var page = this.getAttribute("href").substring(6); //substring(6) removes /wiki/ from url
+		if(page.substring(0,5) == "Help:") return;
+		else {
+			$(this).addClass('contextEligible');
+			$(this).attr('page', page)
+			app.links.push(a);
+		}
 	});
 }
 
@@ -48,7 +56,7 @@ app.contextOff = function() {
 	app.on = !app.on;
 	$('#contextBoxWrapper').slideUp(200);
 	//remove event handler so clicks work as normal
-	$('#mw-content-text p a').unbind(app.trigger);
+	$(app.linkSelector).unbind(app.trigger);
 	$('body').removeClass('contextOn');
 }
 
@@ -57,7 +65,7 @@ app.contextOn = function() {
 	app.on = !app.on;
 	$('#contextBoxWrapper').slideDown(200);
 	//add event listener to override link clicks
-	$('#mw-content-text p a').on(app.trigger, app.getContext);
+	$(app.linkSelector).on(app.trigger, app.getContext);
 	$('body').addClass('contextOn');
 }
 
@@ -66,12 +74,12 @@ app.getContext = function(e) {
 	//stop links being followed when clicked
 	e.preventDefault();
 	//highlight the link in the wikipedia article
-	$('#mw-content-text p a').removeClass('contextSubject');
+	$(app.linkSelector).removeClass('contextSubject');
 	$(this).addClass('contextSubject');
 	//show a loading gif in the context box
 	$('#contextBox').html(app.loadingGif);
 	//isolate the page name
-	page = this.getAttribute("href").substring(6); //substring(6) removes /wiki/ from url
+	page = $(this).attr('page'); //.getAttribute("href").substring(6); //substring(6) removes /wiki/ from url
 	//use the array if it has the relevant snippet
 	if(app.snippets[page] !== undefined) {
 		app.populateContextBox(page)
