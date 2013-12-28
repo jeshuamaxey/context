@@ -45,6 +45,22 @@ button.hideContext {
 	background-color: #f9f9f9;
 }
 
+#ngrip {
+    position: absolute;
+		top: -11px;
+		left: 165px;
+		width: 17px;
+		height: 17px;
+		margin: 0;
+
+		background-color: rgb(249, 249, 249);
+    border: 1px solid #aaa;
+    border-radius: 100%;
+
+    
+		
+}
+
 .title {
 	width: 155px;
 	float: left
