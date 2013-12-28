@@ -14,14 +14,16 @@ app.linkSelector = "#mw-content-text p a.contextEligible";
 //consider using local database here
 app.contexts = {};
 
-app.contextBox = "<button id='showContext' class='btn showContext'>Context</button>" +
-									"<div id='contextBoxWrapper' class='contextBoxWrapper'>" +
-										"<div class='ui-resizable-handle ui-resizable-n' id='ngrip'></div>" +
-										"<div id='title' class='title'>" +
-											"<h2><a href='http://jeshua.co'>Context</a></h2>" +
-											"<button id='hideContext' class='btn hideContext'>Hide</button>" +
+app.contextBox = 	"<button id='showContext' class='btn showContext'>Context</button>" +
+									"<div id='contextBoxWrapperOuter' class='contextBoxWrapperOuter'>" +
+										"<div id='contextBoxWrapperInner' class='contextBoxWrapperInner'>" +
+											"<div class='ui-resizable-handle ui-resizable-n' id='ngrip'></div>" +
+											"<div id='title' class='title'>" +
+												"<h2><a href='http://jeshua.co'>Context</a></h2>" +
+												"<button id='hideContext' class='btn hideContext'>Hide</button>" +
+											"</div>" +
+											"<div id='contextBox' class='hidden'></div>" +
 										"</div>" +
-										"<div id='contextBox' class='hidden'></div>" +
 									"</div>";
 
 //shown when making API calls
@@ -33,7 +35,8 @@ app.main = function() {
 	app.scanSuitableLinks();
 	//put the context UI in the DOM
 	$("body").append(app.contextBox)
-	//$('#contextBoxWrapper').resizable( {handles: {'n': '#ngrip'} } );
+	$('#contextBoxWrapperOuter').draggable();
+	$('#contextBoxWrapperInner').resizable( {handles: {'n': '#ngrip'} } );
 	//add event listeners to turn context on/off
 	$('#hideContext').on('click', app.contextOff);
 	$('#showContext').on('click', app.contextOn);
@@ -63,7 +66,7 @@ app.scanSuitableLinks = function() {
 //when context is turned off
 app.contextOff = function() {
 	app.on = !app.on;
-	$('#contextBoxWrapper').slideUp(200);
+	$('#contextBoxWrapperInner').slideUp(200);
 	//remove event handler so clicks work as normal
 	$(app.linkSelector).unbind(app.trigger);
 	$('body').removeClass('contextOn');
@@ -72,7 +75,7 @@ app.contextOff = function() {
 //when context is turned on
 app.contextOn = function() {
 	app.on = !app.on;
-	$('#contextBoxWrapper').slideDown(200);
+	$('#contextBoxWrapperInner').slideDown(200);
 	//add event listener to override link clicks
 	$(app.linkSelector).on(app.trigger, app.getContext);
 	$('body').addClass('contextOn');
