@@ -15,7 +15,7 @@ app.linkSelector = "#mw-content-text p a.contextEligible";
 app.contexts = {};
 
 app.contextBox = 	"<button id='showContext' class='btn showContext'>Context</button>" +
-									"<div id='contextBoxWrapperOuter' class='contextBoxWrapperOuter'>" +
+									//"<div id='contextBoxWrapperOuter' class='contextBoxWrapperOuter'>" +
 										"<div id='contextBoxWrapperInner' class='contextBoxWrapperInner'>" +
 											//"<div class='ui-resizable-handle ui-resizable-n' id='ngrip'></div>" +
 											"<div id='title' class='title'>" +
@@ -23,8 +23,8 @@ app.contextBox = 	"<button id='showContext' class='btn showContext'>Context</but
 												"<button id='hideContext' class='btn hideContext'>Hide</button>" +
 											"</div>" +
 											"<div id='contextBox' class='hidden'></div>" +
-										"</div>" +
-									"</div>";
+										"</div>" //+
+									//"</div>";
 
 //shown when making API calls
 app.loadingGif = "<p>Loading...</p>";

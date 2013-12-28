@@ -47,7 +47,7 @@ button.hideContext {
 
 	height: 200px;
 	width: auto;
-	min-height: 200px;
+	/*min-height: 200px;*/
 	min-width: 155px;
 	overflow: none;
 
