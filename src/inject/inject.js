@@ -17,7 +17,7 @@ app.contexts = {};
 app.contextBox = 	"<button id='showContext' class='btn showContext'>Context</button>" +
 									"<div id='contextBoxWrapperOuter' class='contextBoxWrapperOuter'>" +
 										"<div id='contextBoxWrapperInner' class='contextBoxWrapperInner'>" +
-											"<div class='ui-resizable-handle ui-resizable-n' id='ngrip'></div>" +
+											//"<div class='ui-resizable-handle ui-resizable-n' id='ngrip'></div>" +
 											"<div id='title' class='title'>" +
 												"<h2><a href='http://jeshua.co'>Context</a></h2>" +
 												"<button id='hideContext' class='btn hideContext'>Hide</button>" +
@@ -35,8 +35,8 @@ app.main = function() {
 	app.scanSuitableLinks();
 	//put the context UI in the DOM
 	$("body").append(app.contextBox)
-	$('#contextBoxWrapperOuter').draggable();
-	$('#contextBoxWrapperInner').resizable( {handles: {'n': '#ngrip'} } );
+	//$('#contextBoxWrapperOuter').draggable();
+	//$('#contextBoxWrapperInner').resizable( {handles: {'n': '#ngrip'} } );
 	//add event listeners to turn context on/off
 	$('#hideContext').on('click', app.contextOff);
 	$('#showContext').on('click', app.contextOn);
