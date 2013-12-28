@@ -28,12 +28,26 @@ button.hideContext {
 	margin-left: -11px;
 }
 
+.contextBoxWrapperOuter {
+  position: fixed !important;
+	bottom: 0;
+
+	height: 150px;
+	min-height: 100px;
+	min-width: 155px;
+	
+	margin-bottom: -39px;
+
+	overflow: none;
+}
+
 .contextBoxWrapperInner {
 	position: fixed;
 	bottom: 0px;
 
 	height: 200px;
 	width: auto;
+	/*min-height: 200px;*/
 	min-width: 155px;
 	overflow: none;
 
