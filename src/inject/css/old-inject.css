@@ -1,0 +1,115 @@
+.contextSubject {
+	background-color: rgb(206, 225, 255);
+}
+
+/* shows different hover cursor when context is turned on */
+.contextOn .contextEligible:hover {
+	cursor: help;
+	/* doesn't yet work */
+	cursor: url('http://jeshua.co/misc/img/context/C_36pt_size_0-5pt%20border.png');
+}
+
+.btn {
+	position: fixed;
+	bottom: 0;
+
+	height: 40px;
+	width: 177px;
+	
+	border: none;
+	font-size: 110%;
+}
+
+.btn:hover {
+	cursor: pointer;
+}
+
+button.hideContext {
+	margin-left: -11px;
+}
+
+.contextBoxWrapperOuter {
+  position: fixed !important;
+	bottom: 0;
+
+	height: 220px;
+	min-width: 155px;
+	
+	margin-bottom: -39px;
+
+	overflow: none;
+}
+
+.contextBoxWrapperInner {
+	position: fixed;
+	bottom: 0px;
+
+	height: 200px;
+	width: auto;
+	/*min-height: 200px;*/
+	min-width: 155px;
+	overflow: none;
+
+	padding: 0px 10px 10px 10px;
+
+	line-height: 1.5em;
+	font-size: 0.8em;
+	/* styles borrowed from contents box of wikipedia page*/
+	border: 1px solid #aaa;
+	background-color: #f9f9f9;
+}
+
+#ngrip {
+    position: absolute;
+		top: -11px;
+		left: 165px;
+		width: 17px;
+		height: 17px;
+		margin: 0;
+
+		background-color: rgb(249, 249, 249);
+    border: 1px solid #aaa;
+    border-radius: 100%;
+}
+
+.title {
+	width: 155px;
+	float: left
+}
+
+.title h2 {
+	line-height: 1.2em;
+}
+
+#contextBox {
+	padding: 10px 10px 10px 25px;
+	max-height: 100%;
+	overflow: scroll;
+}
+
+#contextBox #coordinates {
+	display: none;
+}
+
+/* Hide specific elements of wikipedia summary
+*		- redirect and disambiguation notices
+*		- call to add citations and improve article
+* 	- error messages
+* 	- nav boxes
+*/
+#contextBox .dablink,
+#contextBox table.metadata,
+#contextBox .error,
+#contextBox table.vertical-navbox {
+	display: none;
+}
+
+@media screen and (min-width:982px) {
+	
+}
+
+/* helper classes */
+
+.hidden {
+	display: none;
+}
