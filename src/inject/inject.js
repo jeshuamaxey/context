@@ -66,7 +66,7 @@ app.scanSuitableLinks = function() {
 //when context is turned off
 app.contextOff = function() {
 	app.on = !app.on;
-	$('#contextBoxWrapperInner').slideUp(200);
+	$('#contextBoxWrapperOuter').hide();
 	//remove event handler so clicks work as normal
 	$(app.linkSelector).unbind(app.trigger);
 	$('body').removeClass('contextOn');
@@ -75,7 +75,7 @@ app.contextOff = function() {
 //when context is turned on
 app.contextOn = function() {
 	app.on = !app.on;
-	$('#contextBoxWrapperInner').slideDown(200);
+	$('#contextBoxWrapperOuter').show();
 	//add event listener to override link clicks
 	$(app.linkSelector).on(app.trigger, app.getContext);
 	$('body').addClass('contextOn');
