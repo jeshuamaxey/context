@@ -32,8 +32,7 @@ button.hideContext {
   position: fixed !important;
 	bottom: 0;
 
-	height: 150px;
-	min-height: 100px;
+	height: 220px;
 	min-width: 155px;
 	
 	margin-bottom: -39px;
