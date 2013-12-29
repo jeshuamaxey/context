@@ -22,12 +22,12 @@
   "content_scripts": [
     {
       "matches": ["*://*.wikipedia.org/wiki/*"],
-      "css": ["src/inject/inject.css",
+      "css": ["src/inject/css/inject.css",
               "css/jquery-ui.css"],
       "js": [ "js/jquery/jquery.js",
               "js/jquery-ui/jquery-ui.js",
               "js/wiki2html/wiki2html.js",
-              "src/inject/inject.js" ]
+              "src/inject/js/inject.js" ]
     }
   ]
 }
