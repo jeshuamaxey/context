@@ -20,9 +20,8 @@
   font-size: 110%; }
   .btn:hover {
     cursor: pointer; }
-
-button.hideContext {
-  margin-left: -11px; }
+  .btn.hideContext {
+    margin-left: -11px; }
 
 .contextBoxWrapperOuter {
   position: fixed !important;
@@ -37,13 +36,11 @@ button.hideContext {
   bottom: 0px;
   height: 200px;
   width: auto;
-  /*min-height: 200px;*/
   min-width: 155px;
   overflow: none;
   padding: 0px 10px 10px 10px;
   line-height: 1.5em;
   font-size: 0.8em;
-  /* styles borrowed from contents box of wikipedia page*/
   border: 1px solid #aaa;
   background-color: #f9f9f9; }
 
@@ -83,8 +80,23 @@ button.hideContext {
   display: none; }
 
 /*
+* CSS TRANSITIONS
+*/
+/*
 * Responsive styles taken from wikipedia CSS
 */
+@media screen and (max-width: 982px) {
+  .btn {
+    width: 161px; }
+
+  .contextBoxWrapperOuter, .contextBoxWrapperInner {
+    min-width: 139px; }
+
+  #title {
+    width: 139px; }
+
+  #ngrip {
+    left: 149px; } }
 /* helper classes */
 .hidden {
   display: none; }

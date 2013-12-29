@@ -8,7 +8,8 @@ $contextBlue: rgb(206, 225, 255);
 * Styles
 */
 
-//styles only applied when context is on
+//STYLES ONLY APPLIED WHEN CONTEXT IS ON
+
 .contextOn {
 	//highlight place in wikipedia article
 	.contextSubject {
@@ -23,6 +24,8 @@ $contextBlue: rgb(206, 225, 255);
 	}
 }
 
+//BUTTONS
+
 .btn {
 	position: fixed;
 	bottom: 0;
@@ -36,11 +39,15 @@ $contextBlue: rgb(206, 225, 255);
 	&:hover {
 		cursor: pointer;
 	}
+
+	//specific to show/hide buttons
+	&.hideContext {
+		margin-left: -11px;
+	}
+	&.showContext {}
 }
 
-button.hideContext {
-	margin-left: -11px;
-}
+//CONTEXT BOX STYLES
 
 .contextBoxWrapperOuter {
   position: fixed !important;
@@ -60,32 +67,34 @@ button.hideContext {
 
 	height: 200px;
 	width: auto;
-	/*min-height: 200px;*/
 	min-width: 155px;
+
 	overflow: none;
 
 	padding: 0px 10px 10px 10px;
 
 	line-height: 1.5em;
 	font-size: 0.8em;
-	/* styles borrowed from contents box of wikipedia page*/
+	// styles borrowed from contents box of wikipedia page
 	border: 1px solid #aaa;
 	background-color: #f9f9f9;
 }
 
+//HANDLE FOR RESIZING CONTEXT BOX
 #ngrip {
-    position: absolute;
-		top: -11px;
-		left: 165px;
-		width: 17px;
-		height: 17px;
-		margin: 0;
+  position: absolute;
+	top: -11px;
+	left: 165px;
+	width: 17px;
+	height: 17px;
+	margin: 0;
 
-		background-color: rgb(249, 249, 249);
-    border: 1px solid #aaa;
-    border-radius: 100%;
+	background-color: rgb(249, 249, 249);
+  border: 1px solid #aaa;
+  border-radius: 100%;
 }
 
+//LEFT HAND COLUMN OF CONTEXT BOX
 .title {
 	width: 155px;
 	float: left;
@@ -94,7 +103,7 @@ button.hideContext {
 		line-height: 1.2em;
 	}
 }
-
+//WHERE THE WIKIPEDIA CONTENT IS DISPLAYED
 #contextBox {
 	padding: 10px 10px 10px 25px;
 	max-height: 100%;
@@ -118,10 +127,28 @@ button.hideContext {
 }
 
 /*
+* CSS TRANSITIONS
+*/
+
+
+
+/*
 * Responsive styles taken from wikipedia CSS
 */
-@media screen and (min-width:982px) {
-	
+@media screen and (max-width:982px) {
+	//basically involves shifting lots of things left by 16px
+	.btn {
+		width: 161px;
+	}
+	.contextBoxWrapperOuter, .contextBoxWrapperInner {
+		min-width: 139px;
+	}
+	#title {
+		width: 139px;
+	}
+	#ngrip {
+		left: 149px;
+	}
 }
 
 /* helper classes */
