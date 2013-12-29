@@ -1,0 +1,158 @@
+/*
+* Variables
+*/
+
+$contextBlue: rgb(206, 225, 255);
+
+/*
+* Styles
+*/
+
+//STYLES ONLY APPLIED WHEN CONTEXT IS ON
+
+.contextOn {
+	//highlight place in wikipedia article
+	.contextSubject {
+		background-color: $contextBlue;
+	}
+
+	//shows different hover cursor when context is turned on
+	.contextEligible:hover {
+		cursor: help;
+		/* doesn't yet work */
+		cursor: url('http://jeshua.co/misc/img/context/C_36pt_size_0-5pt%20border.png');
+	}
+}
+
+//BUTTONS
+
+.btn {
+	position: fixed;
+	bottom: 0;
+
+	height: 40px;
+	width: 177px;
+	
+	border: none;
+	font-size: 110%;
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	//specific to show/hide buttons
+	&.hideContext {
+		margin-left: -11px;
+	}
+	&.showContext {}
+}
+
+//CONTEXT BOX STYLES
+
+.contextBoxWrapperOuter {
+  position: fixed !important;
+	bottom: 0;
+
+	height: 220px;
+	min-width: 155px;
+	
+	margin-bottom: -39px;
+
+	overflow: none;
+}
+
+.contextBoxWrapperInner {
+	position: fixed;
+	bottom: 0px;
+
+	height: 200px;
+	width: auto;
+	min-width: 155px;
+
+	overflow: none;
+
+	padding: 0px 10px 10px 10px;
+
+	line-height: 1.5em;
+	font-size: 0.8em;
+	// styles borrowed from contents box of wikipedia page
+	border: 1px solid #aaa;
+	background-color: #f9f9f9;
+}
+
+//HANDLE FOR RESIZING CONTEXT BOX
+#ngrip {
+  position: absolute;
+	top: -11px;
+	left: 165px;
+	width: 17px;
+	height: 17px;
+	margin: 0;
+
+	background-color: rgb(249, 249, 249);
+  border: 1px solid #aaa;
+  border-radius: 100%;
+}
+
+//LEFT HAND COLUMN OF CONTEXT BOX
+.title {
+	width: 155px;
+	float: left;
+
+	h2 {
+		line-height: 1.2em;
+	}
+}
+//WHERE THE WIKIPEDIA CONTENT IS DISPLAYED
+#contextBox {
+	padding: 10px 10px 10px 25px;
+	max-height: 100%;
+	overflow: scroll;
+}
+
+/* Hide specific elements of wikipedia summary
+*		- redirect and disambiguation notices
+*		- call to add citations and improve article
+* 	- error messages
+* 	- nav boxes
+*/
+#contextBox {
+	#coordinates,
+	.dablink,
+	table.metadata,
+	.error,
+	table.vertical-navbox {
+		display: none;
+	}
+}
+
+/*
+* CSS TRANSITIONS
+*/
+
+
+
+/*
+* Responsive styles taken from wikipedia CSS
+*/
+@media screen and (max-width:982px) {
+	//basically involves shifting lots of things left by 16px
+	.btn {
+		width: 161px;
+	}
+	.contextBoxWrapperOuter, .contextBoxWrapperInner {
+		min-width: 139px;
+	}
+	#title {
+		width: 139px;
+	}
+	#ngrip {
+		left: 149px;
+	}
+}
+
+/* helper classes */
+
+.hidden {
+	display: none;
+}

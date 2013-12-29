@@ -15,13 +15,16 @@ app.linkSelector = "#mw-content-text p a.contextEligible";
 app.contexts = {};
 
 app.contextBox = 	"<button id='showContext' class='btn showContext'>Context</button>" +
+									"<div id='contextBoxWrapperOuter' class='contextBoxWrapperOuter'>" +
 										"<div id='contextBoxWrapperInner' class='contextBoxWrapperInner'>" +
+											"<div class='ui-resizable-handle ui-resizable-n' id='ngrip'></div>" +
 											"<div id='title' class='title'>" +
 												"<h2><a href='http://jeshua.co'>Context</a></h2>" +
 												"<button id='hideContext' class='btn hideContext'>Hide</button>" +
 											"</div>" +
 											"<div id='contextBox' class='hidden'></div>" +
-										"</div>";
+										"</div>" +
+									"</div>";
 
 //shown when making API calls
 app.loadingGif = "<p>Loading...</p>";
@@ -30,8 +33,13 @@ app.loadingGif = "<p>Loading...</p>";
 app.main = function() {
 	//add classes to links suitable for creating tooltips for for efficiency
 	app.scanSuitableLinks();
-	//put the context UI in the DOM
-	$("body").append(app.contextBox)
+	//put the context UI in the DOM (make this a function?)
+	$("body").append(app.contextBox);
+	$('#contextBoxWrapperOuter').draggable();
+	$('#contextBoxWrapperInner').resizable({
+		handles: {'n': '#ngrip'},
+		minHeight:58 
+	});
 	//add event listeners to turn context on/off
 	$('#hideContext').on('click', app.contextOff);
 	$('#showContext').on('click', app.contextOn);
@@ -61,7 +69,7 @@ app.scanSuitableLinks = function() {
 //when context is turned off
 app.contextOff = function() {
 	app.on = !app.on;
-	$('#contextBoxWrapperInner').slideUp(200);
+	$('#contextBoxWrapperOuter').hide();
 	//remove event handler so clicks work as normal
 	$(app.linkSelector).unbind(app.trigger);
 	$('body').removeClass('contextOn');
@@ -70,7 +78,7 @@ app.contextOff = function() {
 //when context is turned on
 app.contextOn = function() {
 	app.on = !app.on;
-	$('#contextBoxWrapperInner').slideDown(200);
+	$('#contextBoxWrapperOuter').show();
 	//add event listener to override link clicks
 	$(app.linkSelector).on(app.trigger, app.getContext);
 	$('body').addClass('contextOn');
