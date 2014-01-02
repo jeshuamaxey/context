@@ -19,7 +19,7 @@ app.contextBox = 	"<button id='showContext' class='btn showContext'>Context</but
 										"<div id='contextBoxWrapperInner' class='contextBoxWrapperInner'>" +
 											"<div class='ui-resizable-handle ui-resizable-n' id='ngrip'></div>" +
 											"<div id='title' class='title'>" +
-												"<h2><a href='http://jeshua.co'>Context</a></h2>" +
+												"<h2><a href='jeshuamaxey.github.io/context/'>Context</a></h2>" +
 												"<button id='hideContext' class='btn hideContext'>Hide</button>" +
 											"</div>" +
 											"<div id='contextBox' class='hidden'></div>" +
