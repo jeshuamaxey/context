@@ -909,6 +909,8 @@ body .ui-tooltip {
 	filter:Alpha(Opacity=70);
 	font-weight: normal;
 }
+
+/*
 .ui-state-disabled,
 .ui-widget-content .ui-state-disabled,
 .ui-widget-header .ui-state-disabled {
@@ -916,10 +918,12 @@ body .ui-tooltip {
 	filter:Alpha(Opacity=35);
 	background-image: none;
 }
+*/
+/*
 .ui-state-disabled .ui-icon {
-	filter:Alpha(Opacity=35); /* For IE8 - See #6059 */
+	filter:Alpha(Opacity=35); /* For IE8 - See #6059 * /
 }
-
+*/
 /* Icons
 ----------------------------------*/
 

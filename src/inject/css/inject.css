@@ -100,3 +100,16 @@
 /* helper classes */
 .hidden {
   display: none; }
+
+/* overide jQuery UI CSS */
+.ui-state-disabled,
+.ui-widget-content .ui-state-disabled,
+.ui-widget-header .ui-state-disabled {
+  opacity: 1.0 !important;
+  filter: Alpha(Opacity=100) !important;
+  background-image: none !important;
+  cursor: auto !important; }
+
+.ui-state-disabled .ui-icon {
+  filter: Alpha(Opacity=100) !important;
+  /* For IE8 - See #6059 */ }

@@ -35,11 +35,22 @@ app.main = function() {
 	app.scanSuitableLinks();
 	//put the context UI in the DOM (make this a function?)
 	$("body").append(app.contextBox);
-	$('#contextBoxWrapperOuter').draggable();
+	$('#contextBoxWrapperOuter').draggable({disabled: true});
 	$('#contextBoxWrapperInner').resizable({
 		handles: {'n': '#ngrip'},
-		minHeight:58 
+		minHeight:58
 	});
+
+	$('#ngrip').mouseenter(function() {
+		$('#contextBoxWrapperOuter').draggable({
+			disabled: false
+		})
+	})
+	$('#ngrip').mouseleave(function() {
+		$('#contextBoxWrapperOuter').draggable({
+			disabled: true
+		})
+	})
 	//add event listeners to turn context on/off
 	$('#hideContext').on('click', app.contextOff);
 	$('#showContext').on('click', app.contextOn);
