@@ -131,6 +131,7 @@ app.getData = function(title) {
 
 //save data into app.contexts
 app.processData = function(data, title) {
+	console.log(data);
 	app.contexts[title].data = data;
 	app.contexts[title].fullText = data.parse.text["*"].wiki2html();
 	//clever parsing could occur here to exclude images conditionally
@@ -144,6 +145,29 @@ app.populateContextBox = function(title) {
 	$('#contextBox').html(app.contexts[title].text).removeClass('hidden');
 	$('#title h2 a').attr('href', app.contexts[title].wikiURL);
 	$('#title h2 a').html(title);
+	//check to see if I just dumped a redirect link into the context box
+	if($($('#contextBox').children()[0]).hasClass('redirectMsg')) app.handleRedirect();
+}
+
+app.handleRedirect = function() {
+	var redirectLink =  $('.redirectMsg a')[0];
+	//mostly copied from app.scanSuitableLinks()
+	var contextURL = redirectLink.getAttribute("href").substring(6); //substring(6) removes /wiki/ from url
+	var title = app.decode_utf8(contextURL).replace(/_/g, " ");	//replace underscores with spaces;
+	if(contextURL.substring(0,5) == "Help:") return;
+	else {
+		$(redirectLink).addClass('contextEligible');
+		$(redirectLink).attr('contextURL', contextURL);
+		$(redirectLink).attr('contextTitle', title);
+		app.contexts[title] = {
+			'contextURL' : contextURL,
+			'wikiURL' : '/wiki/' + contextURL
+		};
+	}
+	//apply context event handler on redirect link
+	$('.redirectMsg a').on(app.trigger, app.getContext);
+	//trigger the search for context
+	redirectLink.click();
 }
 
 //for URL to title manipulation
